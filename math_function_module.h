@@ -71,7 +71,7 @@ public:
 	};
 	// Конструктор класса
 	MathFunctionModule() {// В этом конструкторе сразу создадим массив структур
-		math_functions = new FunctionData*[COUNT_MATH_FUNCTIONS];// Использует глобальную переменную. И это указатель на массив а не сам массив Это выделение памяти
+		math_functions = new FunctionData*[COUNT_MATH_FUNCTIONS];// Использует глобальную переменную. Это выделение памяти под массив указателей на структуры FunctionData из MSDN
 		regval function_id = 0;
 		testInt = 12; // просто тест работает ли объект
 		DEFINE_ALL_FUNCTIONS
