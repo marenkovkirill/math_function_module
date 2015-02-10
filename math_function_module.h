@@ -5,12 +5,6 @@
 *
 */
 
-///////// Включения основного модуля module.h
-#include "Module.h"
-#include <iostream>
-//////////
-
-
 #ifndef FUNCTION_MODULE_H
 #define	FUNCTION_MODULE_H
 class FunctionModule {
@@ -90,6 +84,8 @@ public:
 
 typedef FunctionModule* (*getFunctionModuleObject_t)();
 extern "C" {
-	__declspec(dllexport) FunctionModule* getFunctionModuleObject();// Нужная нам функция, вызвав ее в программе мы должны получить доступ к математическим функциям. Видимо определить их имена и т.д.
+	__declspec(dllexport) FunctionModule* getFunctionModuleObject() {  // Нужная нам функция, вызвав ее в программе мы должны получить доступ к математическим функциям. Видимо определить их имена и т.д.
+		return new MathFunctionModule();
+	};  
 }
 #endif	/* FUNCTION_MODULE_H  */
