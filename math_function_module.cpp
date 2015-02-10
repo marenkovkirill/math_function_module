@@ -7,7 +7,7 @@
 
 #include <math.h>
 #include <iostream>
-//#include <time.h> // для Рандомайзера 
+#include <time.h> // для Рандомайзера 
 
 
 using namespace std;
@@ -74,7 +74,7 @@ FunctionResult* MathFunctionModule::executeFunction(regval functionId, regval *a
 	
 		case 5: // Установка Рандомайзера
 		{
-			//srand(time(NULL));
+			srand(time(NULL));
 			rez->result = 1;
 			// Все сделали и выходим из свича
 			break;
@@ -146,10 +146,10 @@ int main(){
 	cout << "- - - " << newObject.executeFunction(4, divTestMas)->result + newObject.executeFunction(4, divTestMas)->result << endl;
 
 	// Проверка Установка рандомайзера. не важно что передаем в аргументах
-	//FRobject = newObject.executeFunction(5, divTestMas); // не забываем что этот объект ссылается на свойство newObject. 
-	//cout << FRobject << endl;
-	//cout << FRobject->type << endl;
-	//cout << FRobject->result << endl;
+	FRobject = newObject.executeFunction(5, divTestMas); // не забываем что этот объект ссылается на свойство newObject. 
+	cout << FRobject << endl;
+	cout << FRobject->type << endl;
+	cout << FRobject->result << endl;
 
 	// Проверяем рандомайзер 
 	FRobject = newObject.executeFunction(6, randTestMas); // не забываем что этот объект ссылается на свойство newObject. 
