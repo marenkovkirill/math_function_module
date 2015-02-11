@@ -27,24 +27,14 @@ FunctionResult* MathFunctionModule::executeFunction(regval functionId, regval *a
 	// Уже не тестовое задание пробуем описать
 	switch (functionId) {
 		//первая функция pow - квадрат. 1-й аргумент возводимое, второй - степень.
-		case 1:  // Тут вопрос про приведение типов
+		case 1:
 		{
-			/*C приведением типов
+			//C приведением типов
 			double arg1,arg2,resOfPow;
 			arg1=*args;
 			arg2=*(args+1);
 			resOfPow=pow(arg1,arg2);
 			rez->result = (int) resOfPow;
-			*/
-	
-			// Пока сделаем тупо так, чтобы не приводить типы
-			int sum = 1;
-			int tempArg1 = (*args); // на всякий слуяай чтобы точно прочиталось что мы будем ее умножать
-			for (int i = 1; i <= *(args + 1); i++) {
-				sum = sum * tempArg1;
-			};
-			//cout << args << " " << *args << " " << *(args + 1) << " " << sum << endl;
-			rez->result = sum;
 			// Все сделали и выходим из свича
 			break;
 		}
@@ -72,18 +62,91 @@ FunctionResult* MathFunctionModule::executeFunction(regval functionId, regval *a
 			// Все сделали и выходим из свича
 			break;
 	
-		case 5: // Установка Рандомайзера
+		case 5: // Корень 2-й степени
 		{
-			srand(time(NULL));
-			rez->result = 1;
+			int resOfsqrt;
+			resOfsqrt = (int) sqrt(*args);
+			rez->result = resOfsqrt;
 			// Все сделали и выходим из свича
 			break;
 		}
-		case 6:
+		case 6: // Рандомное целое число
 		{
 			int resOfrand;
 			resOfrand = rand()%(*args) + (*(args+1)) ;
 			rez->result = resOfrand;
+			// Все сделали и выходим из свича
+			break;
+		}
+		case 7: // Синус
+		{
+			int resOfsin;
+			resOfsin = (int) (1000 * sin(*args)) ;
+			rez->result = resOfsin;
+			// Все сделали и выходим из свича
+			break;
+		}
+		case 8: // Косинус
+		{
+			int resOfcos;
+			resOfcos = (int)(1000 * cos(*args));
+			rez->result = resOfcos;
+			// Все сделали и выходим из свича
+			break;
+		}
+		case 9: // Тангенс
+		{
+			int resOftan;
+			resOftan = (int)(1000 * tan(*args));
+			rez->result = resOftan;
+			// Все сделали и выходим из свича
+			break;
+		}
+		case 10: // АркСинус
+		{
+			int resOfasin;
+			resOfasin = (int)(1000 * asin(*args));
+			rez->result = resOfasin;
+			// Все сделали и выходим из свича
+			break;
+		}
+		case 11: // АркКосинус
+		{
+			int resOfacos;
+			resOfacos = (int)(1000 * acos(*args));
+			rez->result = resOfacos;
+			// Все сделали и выходим из свича
+			break;
+		}
+		case 12: // АркТангенс
+		{
+			int resOfatan;
+			resOfatan = (int)(1000 * atan(*args));
+			rez->result = resOfatan;
+			// Все сделали и выходим из свича
+			break;
+		}
+		case 13: // Экспонента
+		{
+			int resOfexp;
+			resOfexp = (int) exp(*args);
+			rez->result = resOfexp;
+			// Все сделали и выходим из свича
+			break;
+		}
+		case 14: // Логарифм Натуральный
+		{
+			int resOflog;
+			resOflog = (int)log(*args);
+			rez->result = resOflog;
+			// Все сделали и выходим из свича
+			break;
+		}
+		case 15: // Десятичный логарифм
+		{
+			int resOflog10;
+			resOflog10 = (int)log10(*args);
+			rez->result = resOflog10;
 			// Все сделали и выходим из свича
 			break;
 		}
@@ -111,7 +174,7 @@ int main(){
 	regval fmodTestMas[] = { 7, 4 };
 	regval divTestMas[] = { 9, 4 };
 	regval randTestMas[] = { 10, 1 };
-	
+	regval SiCoTanTestMas[] = {1};
 	
 	MathFunctionModule newObject;
 
