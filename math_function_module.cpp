@@ -27,7 +27,7 @@ FunctionResult* MathFunctionModule::executeFunction(regval functionId, regval *a
 	// Уже не тестовое задание пробуем описать
 	switch (functionId) {
 		//первая функция pow - квадрат. 1-й аргумент возводимое, второй - степень.
-		case 1:
+		case 1:  // Тут вопрос про приведение типов
 		{
 			//C приведением типов
 			double arg1,arg2,resOfPow;
@@ -62,10 +62,10 @@ FunctionResult* MathFunctionModule::executeFunction(regval functionId, regval *a
 			// Все сделали и выходим из свича
 			break;
 	
-		case 5: // Корень 2-й степени
+		case 5: // Корень 2-й степени Результат будем выводить умноженным на 1000, потому что растет медленно(меняется медленно)
 		{
 			int resOfsqrt;
-			resOfsqrt = (int) sqrt(*args);
+			resOfsqrt = (int) (1000 * sqrt(*args));
 			rez->result = resOfsqrt;
 			// Все сделали и выходим из свича
 			break;
@@ -78,79 +78,79 @@ FunctionResult* MathFunctionModule::executeFunction(regval functionId, regval *a
 			// Все сделали и выходим из свича
 			break;
 		}
-		case 7: // Синус
+		case 7: // Синус Изменяется быстро поэтому ввод просим умножить на 1000 а в вычислениях введенное будем делить на 1000 и выводить будем умножив на 1000, потому что быстро меняется в малых пределах
 		{
 			int resOfsin;
-			resOfsin = (int) (1000 * sin(*args)) ;
+			resOfsin = (int) (1000 * sin(*args/1000)) ;
 			rez->result = resOfsin;
 			// Все сделали и выходим из свича
 			break;
 		}
-		case 8: // Косинус
+		case 8: // Косинус Изменяется быстро поэтому ввод просим умножить на 1000 а в вычислениях введенное будем делить на 1000 и выводить будем умножив на 1000, потому что быстро меняется в малых пределах
 		{
 			int resOfcos;
-			resOfcos = (int)(1000 * cos(*args));
+			resOfcos = (int)(1000 * cos(*args/1000));
 			rez->result = resOfcos;
 			// Все сделали и выходим из свича
 			break;
 		}
-		case 9: // Тангенс
+		case 9: // Тангенс Изменяется быстро поэтому ввод просим умножить на 1000 а в вычислениях введенное будем делить на 1000 и выводить будем умножив на 1000, потому что быстро меняется в малых пределах
 		{
 			int resOftan;
-			resOftan = (int)(1000 * tan(*args));
+			resOftan = (int)(1000 * tan(*args / 1000));
 			rez->result = resOftan;
 			// Все сделали и выходим из свича
 			break;
 		}
-		case 10: // АркСинус
+		case 10: // АркСинус Изменяется быстро поэтому ввод просим умножить на 1000 а в вычислениях введенное будем делить на 1000 и выводить будем умножив на 1000, потому что быстро меняется в малых пределах
 		{
 			int resOfasin;
-			resOfasin = (int)(1000 * asin(*args));
+			resOfasin = (int)(1000 * asin(*args / 1000));
 			rez->result = resOfasin;
 			// Все сделали и выходим из свича
 			break;
 		}
-		case 11: // АркКосинус
+		case 11: // АркКосинус Изменяется быстро поэтому ввод просим умножить на 1000 а в вычислениях введенное будем делить на 1000 и выводить будем умножив на 1000, потому что быстро меняется в малых пределах
 		{
 			int resOfacos;
-			resOfacos = (int)(1000 * acos(*args));
+			resOfacos = (int)(1000 * acos(*args / 1000));
 			rez->result = resOfacos;
 			// Все сделали и выходим из свича
 			break;
 		}
-		case 12: // АркТангенс
+		case 12: // АркТангенс Изменяется быстро поэтому ввод просим умножить на 1000 а в вычислениях введенное будем делить на 1000 и выводить будем умножив на 1000, потому что быстро меняется в малых пределах
 		{
 			int resOfatan;
-			resOfatan = (int)(1000 * atan(*args));
+			resOfatan = (int)(1000 * atan(*args / 1000));
 			rez->result = resOfatan;
 			// Все сделали и выходим из свича
 			break;
 		}
-		case 13: // Экспонента
+		case 13: // Экспонента Растет быстро поэтому ввод просим умножить на 1000 а в вычислениях введенное будем делить на 1000
 		{
 			int resOfexp;
-			resOfexp = (int) exp(*args);
+			resOfexp = (int)exp(*args / 1000);
 			rez->result = resOfexp;
 			// Все сделали и выходим из свича
 			break;
 		}
-		case 14: // Логарифм Натуральный
+		case 14: // Логарифм Натуральный Растет медленно поэтому вывод умножим на 1000
 		{
 			int resOflog;
-			resOflog = (int)log(*args);
+			resOflog = (int)( 1000* log(*args));
 			rez->result = resOflog;
 			// Все сделали и выходим из свича
 			break;
 		}
-		case 15: // Десятичный логарифм
+		case 15: // Десятичный логарифм Растет медленно поэтому вывод умножим на 1000
 		{
 			int resOflog10;
-			resOflog10 = (int)log10(*args);
+			resOflog10 = (int) (1000 * log10(*args));
 			rez->result = resOflog10;
 			// Все сделали и выходим из свича
 			break;
 		}
-    }; // Конец switch
+        }; // Конец switch
 	return rez;
 };
 
