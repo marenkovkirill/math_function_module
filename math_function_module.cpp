@@ -34,7 +34,7 @@ function_id++;
 	ADD_MATH_FUNCTION("mod",  2,false) \
 	ADD_MATH_FUNCTION("div",  2,false) \
 	ADD_MATH_FUNCTION("sqrt", 1,false) \
-	ADD_MATH_FUNCTION("rand", 1,false) \
+	ADD_MATH_FUNCTION("rand", 2,false) \
 	ADD_MATH_FUNCTION("sin",  1,false) \
 	ADD_MATH_FUNCTION("cos",  1,false) \
 	ADD_MATH_FUNCTION("tan",  1,false) \
