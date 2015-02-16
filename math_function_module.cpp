@@ -33,17 +33,17 @@ function_id++;
 	ADD_MATH_FUNCTION("abs",  1,false) \
 	ADD_MATH_FUNCTION("mod",  2,false) \
 	ADD_MATH_FUNCTION("div",  2,false) \
-	ADD_MATH_FUNCTION("sqrt", 1,false) \
-	ADD_MATH_FUNCTION("rand", 2,false) \
+	ADD_MATH_FUNCTION("sqrt", 1,true) \
+	ADD_MATH_FUNCTION("rand", 2,true) \
 	ADD_MATH_FUNCTION("sin",  1,false) \
 	ADD_MATH_FUNCTION("cos",  1,false) \
 	ADD_MATH_FUNCTION("tan",  1,false) \
-	ADD_MATH_FUNCTION("asin", 1,false) \
-	ADD_MATH_FUNCTION("acos", 1,false) \
+	ADD_MATH_FUNCTION("asin", 1,true) \
+	ADD_MATH_FUNCTION("acos", 1,true) \
 	ADD_MATH_FUNCTION("atan", 1,false) \
 	ADD_MATH_FUNCTION("exp",  1,false) \
-	ADD_MATH_FUNCTION("log",  1,false) \
-	ADD_MATH_FUNCTION("log10",1,false) 
+	ADD_MATH_FUNCTION("log",  1,true) \
+	ADD_MATH_FUNCTION("log10",1,true) 
 // Конец макроса
 
 // Далее описание методов класса МathFunctionModule
