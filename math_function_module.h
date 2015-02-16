@@ -34,9 +34,4 @@ public:
 	~MathFunctionModule() {};// не описываем деструктор но объявим его, так как он есть в базовом классе FunctionModule
 };
 
-typedef FunctionModule* (*getFunctionModuleObject_t)();
-extern "C" {
-	__declspec(dllexport) FunctionModule* getFunctionModuleObject(); // Объявим в заголовочном а в теле опишем.
-}
-
 #endif	/* MATH_FUNCTION_MODULE_H  */
