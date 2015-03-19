@@ -24,8 +24,6 @@ int COUNT_MATH_FUNCTIONS = 15;
 #define DEFINE_ALL_FUNCTIONS \
 	ADD_MATH_FUNCTION("pow",  2, false) \
 	ADD_MATH_FUNCTION("abs",  1, false) \
-	ADD_MATH_FUNCTION("mod",  2, false) \
-	ADD_MATH_FUNCTION("div",  2, false) \
 	ADD_MATH_FUNCTION("sqrt", 1, true) \
 	ADD_MATH_FUNCTION("rand", 2, true) \
 	ADD_MATH_FUNCTION("sin",  1, false) \
@@ -73,7 +71,7 @@ FunctionResult* MathFunctionModule::executeFunction(regval functionId, regval *a
 
     switch (functionId) {
 		case 1: {
-			rez->result = (int)pow((double)*args, (double)(*(args + 1)));
+			rez->result = (regval) pow(*args, *(args + 1));
 			break;
 		}
 		case 2: {
@@ -81,73 +79,65 @@ FunctionResult* MathFunctionModule::executeFunction(regval functionId, regval *a
 			break;
 		}
 		case 3: {
-			rez->result = (int)fmod(*args, *(args + 1));
-			break;
-		}
-		case 4: {
-			rez->result = (*args - (int)fmod(*args, *(args + 1))) / (*(args + 1));
-			break;
-		}
-		case 5: {
 			if (*args < 0) {
 				throw_exception = true;
 			}
-			rez->result = (int)(1000 * sqrt(*args));
+			rez->result = (regval)sqrt(*args) * 1000;
 			break;
 		}
-		case 6: {
+		case 4: {
 			if (*args <= 0) {
 				throw_exception = true;
 			}
 			rez->result = rand() % (*args) + (*(args + 1));
 			break;
 		}
+		case 5: {
+					rez->result = (regval) (1000 * sin(((double)*args) / 1000));
+			break;
+		}
+		case 6: {
+					rez->result = (regval) (1000 * cos(((double)*args) / 1000));
+			break;
+		}
 		case 7: {
-			rez->result = (int)(1000 * sin(((double)*args) / 1000));
+			rez->result = (regval) (1000 * tan(((double)*args) / 1000));
 			break;
 		}
 		case 8: {
-			rez->result = (int)(1000 * cos(((double)*args) / 1000));
+			if ((*args < -1000) && (*args > 1000)) {
+				throw_exception = true;
+			}
+			rez->result = (regval) (1000 * asin(((double)*args) / 1000));
 			break;
 		}
 		case 9: {
-			rez->result = (int)(1000 * tan(((double)*args) / 1000));
+			if ((*args < -1000) && (*args > 1000)) {
+				throw_exception = true;
+			}
+			rez->result = (regval) (1000 * acos(((double)*args) / 1000));
 			break;
 		}
 		case 10: {
-			if ((*args < -1000) && (*args > 1000)) {
-				throw_exception = true;
-			}
-			rez->result = (int)(1000 * asin(((double)*args) / 1000));
+			rez->result = (regval) (1000 * atan( ((double)*args) / 1000));
 			break;
 		}
 		case 11: {
-			if ((*args < -1000) && (*args > 1000)) {
-				throw_exception = true;
-			}
-			rez->result = (int)(1000 * acos(((double)*args) / 1000));
+			rez->result = (regval) (1000 * exp( ((double)*args) / 1000));
 			break;
 		}
 		case 12: {
-			rez->result = (int)(1000 * atan(((double)*args) / 1000));
+			if (*args <= 0) {
+				throw_exception = true;
+			}
+			rez->result = (regval) (1000 * log(*args));
 			break;
 		}
 		case 13: {
-			rez->result = (int)exp(((double)*args) / 1000);
-			break;
-		}
-		case 14: {
 			if (*args <= 0) {
 				throw_exception = true;
 			}
-			rez->result = (int)(1000 * log((double)*args));
-			break;
-		}
-		case 15: {
-			if (*args <= 0) {
-				throw_exception = true;
-			}
-			rez->result = (int)(1000 * log10((double)*args));
+			rez->result = (regval) (1000 * log10(*args));
 			break;
 		}
     }
