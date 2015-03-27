@@ -8,10 +8,8 @@
 #include <math.h>
 #include <iostream>
 
-////////////// Установка Глобальных переменных.
-int COUNT_MATH_FUNCTIONS = 15;
+int COUNT_MATH_FUNCTIONS = 13;
 
-// Опишем макрос который будет заполнять наш массив структур с информацией о функциях. Ия функции, Присваивает уникальный индекс, число параметров и дает ли исключение.
 #define ADD_MATH_FUNCTION(FUNCTION_NAME, COUNT_PARAMS, GIVE_EXCEPTION) \
 	math_functions[function_id] = new FunctionData; \
 	math_functions[function_id]->command_index = function_id + 1; \
@@ -20,7 +18,6 @@ int COUNT_MATH_FUNCTIONS = 15;
 	math_functions[function_id]->name = FUNCTION_NAME; \
 	function_id++;
 
-// Опишем макросс который все наши функции заполнит/ Добавил Функцию - Увеличивай их число COUNT_MATH_FUNCTIONS. А то удалишь нафиг какой-нить процесс в памяти.
 #define DEFINE_ALL_FUNCTIONS \
 	ADD_MATH_FUNCTION("pow",  2, false) \
 	ADD_MATH_FUNCTION("abs",  1, false) \
@@ -62,7 +59,7 @@ void MathFunctionModule::destroy() {
 };
 
 FunctionResult* MathFunctionModule::executeFunction(regval functionId, regval *args) {
-    if ((functionId < 1) || (functionId > 15)) {
+	if ((functionId < 1) || (functionId > COUNT_MATH_FUNCTIONS)) {
         return NULL;
     }
 
