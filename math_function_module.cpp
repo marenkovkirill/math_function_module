@@ -1,12 +1,10 @@
-#include <stddef.h> // Чтобы определить NULL
-#include <time.h> // для Рандомайзера 
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
 
 #include "../module_headers/module.h"
-#include "../module_headers/function_Module.h"
+#include "../module_headers/function_module.h"
 #include "math_function_module.h"
-
-#include <math.h>
-#include <iostream>
 
 int COUNT_MATH_FUNCTIONS = 13;
 
@@ -37,7 +35,7 @@ const char* MathFunctionModule::getUID() {
     return "Math_Functions_dll";
 };
 
-FunctionData**  MathFunctionModule::getFunctions(int *count_functions) {
+FunctionData**  MathFunctionModule::getFunctions(unsigned int *count_functions) {
     *count_functions = COUNT_MATH_FUNCTIONS;
     return math_functions;
 };
@@ -46,7 +44,7 @@ MathFunctionModule::MathFunctionModule() {
     srand(time(NULL));
 	
 	math_functions = new FunctionData*[COUNT_MATH_FUNCTIONS];
-    regval function_id = 0;
+	system_value function_id = 0;
     DEFINE_ALL_FUNCTIONS
 };
 
@@ -58,7 +56,7 @@ void MathFunctionModule::destroy() {
     delete this;
 };
 
-FunctionResult* MathFunctionModule::executeFunction(regval functionId, regval *args) {
+FunctionResult* MathFunctionModule::executeFunction(system_value functionId, variable_value *args) {
 	if ((functionId < 1) || (functionId > COUNT_MATH_FUNCTIONS)) {
         return NULL;
     }
@@ -68,7 +66,7 @@ FunctionResult* MathFunctionModule::executeFunction(regval functionId, regval *a
 
     switch (functionId) {
 		case 1: {
-			rez->result = (regval) pow(*args, *(args + 1));
+			rez->result = pow(*args, *(args + 1));
 			break;
 		}
 		case 2: {
@@ -79,62 +77,62 @@ FunctionResult* MathFunctionModule::executeFunction(regval functionId, regval *a
 			if (*args < 0) {
 				throw_exception = true;
 			}
-			rez->result = (regval)sqrt(*args) * 1000;
+			rez->result = sqrt(*args);
 			break;
 		}
 		case 4: {
 			if (*args <= 0) {
 				throw_exception = true;
 			}
-			rez->result = rand() % (*args) + (*(args + 1));
+			rez->result = (variable_value) (rand() % ((int) (*args)) + ((int) (*(args + 1))));
 			break;
 		}
 		case 5: {
-					rez->result = (regval) (1000 * sin(((double)*args) / 1000));
+			rez->result = sin(*args);
 			break;
 		}
 		case 6: {
-					rez->result = (regval) (1000 * cos(((double)*args) / 1000));
+			rez->result = cos(*args);
 			break;
 		}
 		case 7: {
-			rez->result = (regval) (1000 * tan(((double)*args) / 1000));
+			rez->result = tan(*args);
 			break;
 		}
 		case 8: {
-			if ((*args < -1000) && (*args > 1000)) {
+			if ((*args < -1) && (*args > 1)) {
 				throw_exception = true;
 			}
-			rez->result = (regval) (1000 * asin(((double)*args) / 1000));
+			rez->result = asin(*args);
 			break;
 		}
 		case 9: {
-			if ((*args < -1000) && (*args > 1000)) {
+			if ((*args < -1) && (*args > 1)) {
 				throw_exception = true;
 			}
-			rez->result = (regval) (1000 * acos(((double)*args) / 1000));
+			rez->result = acos(*args);
 			break;
 		}
 		case 10: {
-			rez->result = (regval) (1000 * atan( ((double)*args) / 1000));
+			rez->result = atan(*args);
 			break;
 		}
 		case 11: {
-			rez->result = (regval) (1000 * exp( ((double)*args) / 1000));
+			rez->result = exp(*args);
 			break;
 		}
 		case 12: {
 			if (*args <= 0) {
 				throw_exception = true;
 			}
-			rez->result = (regval) (1000 * log(*args));
+			rez->result = log(*args);
 			break;
 		}
 		case 13: {
 			if (*args <= 0) {
 				throw_exception = true;
 			}
-			rez->result = (regval) (1000 * log10(*args));
+			rez->result = log10(*args);
 			break;
 		}
     }
