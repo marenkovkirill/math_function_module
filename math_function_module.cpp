@@ -6,7 +6,7 @@
 #include "../module_headers/function_module.h"
 #include "math_function_module.h"
 
-int COUNT_MATH_FUNCTIONS = 13;
+const unsigned int COUNT_MATH_FUNCTIONS = 13;
 
 #define ADD_MATH_FUNCTION(FUNCTION_NAME, COUNT_PARAMS, GIVE_EXCEPTION) \
 	math_functions[function_id] = new FunctionData; \
@@ -49,7 +49,7 @@ MathFunctionModule::MathFunctionModule() {
 };
 
 void MathFunctionModule::destroy() {
-    for (int j = 0; j < COUNT_MATH_FUNCTIONS; ++j) {
+	for (unsigned int j = 0; j < COUNT_MATH_FUNCTIONS; ++j) {
         delete math_functions[j];
     }
     delete[] math_functions;
