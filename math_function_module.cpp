@@ -61,86 +61,94 @@ FunctionResult* MathFunctionModule::executeFunction(system_value functionId, var
         return NULL;
     }
 
-    FunctionResult *rez = new FunctionResult(1);
+    
 	bool throw_exception = false;
+	variable_value rez = 0;
 
     switch (functionId) {
 		case 1: {
-			rez->result = pow(*args, *(args + 1));
+			rez = pow(*args, *(args + 1));
 			break;
 		}
 		case 2: {
-			rez->result = abs(*args);
+			rez = abs(*args);
 			break;
 		}
 		case 3: {
 			if (*args < 0) {
 				throw_exception = true;
+			} else {
+				rez = sqrt(*args);
 			}
-			rez->result = sqrt(*args);
 			break;
 		}
 		case 4: {
 			if (*args <= 0) {
 				throw_exception = true;
+			} else {
+				rez = (variable_value)(rand() % ((int)(*args)) + ((int)(*(args + 1))));
 			}
-			rez->result = (variable_value) (rand() % ((int) (*args)) + ((int) (*(args + 1))));
 			break;
 		}
 		case 5: {
-			rez->result = sin(*args);
+			rez = sin(*args);
 			break;
 		}
 		case 6: {
-			rez->result = cos(*args);
+			rez = cos(*args);
 			break;
 		}
 		case 7: {
-			rez->result = tan(*args);
+			rez = tan(*args);
 			break;
 		}
 		case 8: {
 			if ((*args < -1) && (*args > 1)) {
 				throw_exception = true;
+			} else {
+				rez = asin(*args);
 			}
-			rez->result = asin(*args);
 			break;
 		}
 		case 9: {
 			if ((*args < -1) && (*args > 1)) {
 				throw_exception = true;
+			} else {
+				rez = acos(*args);
 			}
-			rez->result = acos(*args);
 			break;
 		}
 		case 10: {
-			rez->result = atan(*args);
+			rez = atan(*args);
 			break;
 		}
 		case 11: {
-			rez->result = exp(*args);
+			rez = exp(*args);
 			break;
 		}
 		case 12: {
 			if (*args <= 0) {
 				throw_exception = true;
+			} else {
+				rez = log(*args);
 			}
-			rez->result = log(*args);
 			break;
 		}
 		case 13: {
 			if (*args <= 0) {
 				throw_exception = true;
+			} else {
+				rez = log10(*args);
 			}
-			rez->result = log10(*args);
 			break;
 		}
     }
 
     if (throw_exception) {
-        rez->type = 0;
-    }
-    return rez;
+		return new FunctionResult(0);
+	} else {
+		return new FunctionResult(1, rez);
+	}
 };
 
 __declspec(dllexport) FunctionModule* getFunctionModuleObject() {
