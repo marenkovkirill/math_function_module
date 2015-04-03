@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <exception>
 #include <time.h>
 #include <math.h>
 
@@ -60,94 +61,84 @@ FunctionResult* MathFunctionModule::executeFunction(system_value functionId, var
 	if ((functionId < 1) || (functionId > COUNT_MATH_FUNCTIONS)) {
         return NULL;
     }
-
     
-	bool throw_exception = false;
-	variable_value rez = 0;
-
-    switch (functionId) {
-		case 1: {
-			rez = pow(*args, *(args + 1));
-			break;
-		}
-		case 2: {
-			rez = abs(*args);
-			break;
-		}
-		case 3: {
-			if (*args < 0) {
-				throw_exception = true;
-			} else {
+	try {
+		variable_value rez = 0;
+		switch (functionId) {
+			case 1: {
+				rez = pow(*args, *(args + 1));
+				break;
+			}
+			case 2: {
+				rez = abs(*args);
+				break;
+			}
+			case 3: {
+				if (*args < 0) {
+					throw std::exception();
+				}
 				rez = sqrt(*args);
+				break;
 			}
-			break;
-		}
-		case 4: {
-			if (*args <= 0) {
-				throw_exception = true;
-			} else {
+			case 4: {
+				if (*args <= 0) {
+					throw std::exception();
+				}
 				rez = (variable_value)(rand() % ((int)(*args)) + ((int)(*(args + 1))));
+				break;
 			}
-			break;
-		}
-		case 5: {
-			rez = sin(*args);
-			break;
-		}
-		case 6: {
-			rez = cos(*args);
-			break;
-		}
-		case 7: {
-			rez = tan(*args);
-			break;
-		}
-		case 8: {
-			if ((*args < -1) && (*args > 1)) {
-				throw_exception = true;
-			} else {
+			case 5: {
+				rez = sin(*args);
+				break;
+			}
+			case 6: {
+				rez = cos(*args);
+				break;
+			}
+			case 7: {
+				rez = tan(*args);
+				break;
+			}
+			case 8: {
+				if ((*args < -1) && (*args > 1)) {
+					throw std::exception();
+				}
 				rez = asin(*args);
+				break;
 			}
-			break;
-		}
-		case 9: {
-			if ((*args < -1) && (*args > 1)) {
-				throw_exception = true;
-			} else {
+			case 9: {
+				if ((*args < -1) && (*args > 1)) {
+					throw std::exception();
+				}
 				rez = acos(*args);
+				break;
 			}
-			break;
-		}
-		case 10: {
-			rez = atan(*args);
-			break;
-		}
-		case 11: {
-			rez = exp(*args);
-			break;
-		}
-		case 12: {
-			if (*args <= 0) {
-				throw_exception = true;
-			} else {
+			case 10: {
+				rez = atan(*args);
+				break;
+			}
+			case 11: {
+				rez = exp(*args);
+				break;
+			}
+			case 12: {
+				if (*args <= 0) {
+					throw std::exception();
+				}
 				rez = log(*args);
+				break;
 			}
-			break;
-		}
-		case 13: {
-			if (*args <= 0) {
-				throw_exception = true;
-			} else {
+			case 13: {
+				if (*args <= 0) {
+					throw std::exception();
+				}
 				rez = log10(*args);
+				break;
 			}
-			break;
 		}
-    }
-
-    if (throw_exception) {
-		return new FunctionResult(0);
-	} else {
 		return new FunctionResult(1, rez);
+	} catch (...) {
+		return new FunctionResult(0);
 	}
 };
 
