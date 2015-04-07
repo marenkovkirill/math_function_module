@@ -9,12 +9,14 @@
 #define	MATH_FUNCTION_MODULE_H
 
 class MathFunctionModule : public FunctionModule {
+	FunctionData **math_functions;
+	
 	public:
-		FunctionData **math_functions;
-		const char *getUID();
-		FunctionData **getFunctions(int *count_functions);
-		FunctionResult* executeFunction(regval functionId, regval *args);
 		MathFunctionModule();
+		const char *getUID();
+		void prepare(colorPrintf_t *colorPrintf_p, colorPrintfVA_t *colorPrintfVA_p) {};
+		FunctionData **getFunctions(unsigned int *count_functions);
+		FunctionResult* executeFunction(system_value functionId, variable_value *args);
 		void destroy();
 		~MathFunctionModule() {};
 };
