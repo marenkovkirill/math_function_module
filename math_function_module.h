@@ -16,7 +16,7 @@ class MathFunctionModule : public FunctionModule {
 		const char *getUID();
 		void prepare(colorPrintf_t *colorPrintf_p, colorPrintfVA_t *colorPrintfVA_p) {};
 		FunctionData **getFunctions(unsigned int *count_functions);
-		FunctionResult* executeFunction(system_value functionId, variable_value *args);
+		FunctionResult* executeFunction(system_value function_index, void **args);
 		void destroy();
 		~MathFunctionModule() {};
 };
