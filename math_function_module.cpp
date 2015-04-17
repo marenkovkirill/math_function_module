@@ -42,23 +42,125 @@ const unsigned int COUNT_MATH_FUNCTIONS = 13;
 	ADD_MATH_FUNCTION1("log") \
 	ADD_MATH_FUNCTION1("log10")
 
+MathFunctionModule::MathFunctionModule() {
+	srand(time(NULL));
+
+	math_functions = new FunctionData*[COUNT_MATH_FUNCTIONS];
+	system_value function_id = 0;
+
+	DEFINE_ALL_FUNCTIONS
+};
+
 const char* MathFunctionModule::getUID() {
     return "Math_Functions_dll";
 };
 
-FunctionData**  MathFunctionModule::getFunctions(unsigned int *count_functions) {
+FunctionData** MathFunctionModule::getFunctions(unsigned int *count_functions) {
     *count_functions = COUNT_MATH_FUNCTIONS;
     return math_functions;
 };
 
-MathFunctionModule::MathFunctionModule() {
-    srand(time(NULL));
-	
-	math_functions = new FunctionData*[COUNT_MATH_FUNCTIONS];
-	system_value function_id = 0;
+void *MathFunctionModule::writePC(unsigned int *buffer_length) {
+	*buffer_length = 0;
+	return NULL;
+}
 
-    DEFINE_ALL_FUNCTIONS
+FunctionResult* MathFunctionModule::executeFunction(system_value function_index, void **args) {
+	if ((function_index < 1) || (function_index > COUNT_MATH_FUNCTIONS)) {
+		return NULL;
+	}
+
+	try {
+		variable_value *input = (variable_value *)(*args);
+		variable_value rez = 0;
+		switch (function_index) {
+		case 1: {
+					variable_value *input2 = (variable_value *)(*(args + 1));
+					rez = pow(*input, *input2);
+					break;
+		}
+		case 2: {
+					rez = abs(*input);
+					break;
+		}
+		case 3: {
+					if ((*input) < 0) {
+						throw std::exception();
+					}
+					rez = sqrt(*input);
+					break;
+		}
+		case 4: {
+					if ((*input) <= 0) {
+						throw std::exception();
+					}
+					variable_value *input2 = (variable_value *)(*(args + 1));
+					rez = (variable_value)(rand() % ((int)(*input)) + ((int)(*input2)));
+					break;
+		}
+		case 5: {
+					rez = sin(*input);
+					break;
+		}
+		case 6: {
+					rez = cos(*input);
+					break;
+		}
+		case 7: {
+					rez = tan(*input);
+					break;
+		}
+		case 8: {
+					if (((*input) < -1) && ((*input) > 1)) {
+						throw std::exception();
+					}
+					rez = asin(*input);
+					break;
+		}
+		case 9: {
+					if (((*input) < -1) && ((*input) > 1)) {
+						throw std::exception();
+					}
+					rez = acos(*input);
+					break;
+		}
+		case 10: {
+					 rez = atan(*input);
+					 break;
+		}
+		case 11: {
+					 rez = exp(*input);
+					 break;
+		}
+		case 12: {
+					 if (*input <= 0) {
+						 throw std::exception();
+					 }
+					 rez = log(*input);
+					 break;
+		}
+		case 13: {
+					 if (input <= 0) {
+						 throw std::exception();
+					 }
+					 rez = log10(*input);
+					 break;
+		}
+		}
+		return new FunctionResult(1, rez);
+	}
+	catch (...) {
+		return new FunctionResult(0);
+	}
 };
+
+int MathFunctionModule::startProgram(int uniq_index, void *buffer, unsigned int buffer_length) {
+	return 0;
+}
+
+int MathFunctionModule::endProgram(int uniq_index) {
+	return 0;
+}
 
 void MathFunctionModule::destroy() {
 	for (unsigned int j = 0; j < COUNT_MATH_FUNCTIONS; ++j) {
@@ -66,94 +168,6 @@ void MathFunctionModule::destroy() {
     }
     delete[] math_functions;
     delete this;
-};
-
-FunctionResult* MathFunctionModule::executeFunction(system_value function_index, void **args) {
-	if ((function_index < 1) || (function_index > COUNT_MATH_FUNCTIONS)) {
-        return NULL;
-    }
-    
-	try {
-		variable_value *input = (variable_value *) (*args);
-		variable_value rez = 0;
-		switch (function_index) {
-			case 1: {
-				variable_value *input2 = (variable_value *) (*(args + 1));
-				rez = pow(*input, *input2);
-				break;
-			}
-			case 2: {
-				rez = abs(*input);
-				break;
-			}
-			case 3: {
-				if ((*input) < 0) {
-					throw std::exception();
-				}
-				rez = sqrt(*input);
-				break;
-			}
-			case 4: {
-				if ((*input) <= 0) {
-					throw std::exception();
-				}
-				variable_value *input2 = (variable_value *)(*(args + 1));
-				rez = (variable_value)(rand() % ((int)(*input)) + ((int)(*input2)));
-				break;
-			}
-			case 5: {
-				rez = sin(*input);
-				break;
-			}
-			case 6: {
-				rez = cos(*input);
-				break;
-			}
-			case 7: {
-				rez = tan(*input);
-				break;
-			}
-			case 8: {
-				if (((*input) < -1) && ((*input) > 1)) {
-					throw std::exception();
-				}
-				rez = asin(*input);
-				break;
-			}
-			case 9: {
-				if (((*input) < -1) && ((*input) > 1)) {
-					throw std::exception();
-				}
-				rez = acos(*input);
-				break;
-			}
-			case 10: {
-				rez = atan(*input);
-				break;
-			}
-			case 11: {
-				rez = exp(*input);
-				break;
-			}
-			case 12: {
-				if (*input <= 0) {
-					throw std::exception();
-				}
-				rez = log(*input);
-				break;
-			}
-			case 13: {
-				if (input <= 0) {
-					throw std::exception();
-				}
-				rez = log10(*input);
-				break;
-			}
-		}
-		return new FunctionResult(1, rez);
-	} catch (...) {
-		return new FunctionResult(0);
-	}
 };
 
 __declspec(dllexport) FunctionModule* getFunctionModuleObject() {
