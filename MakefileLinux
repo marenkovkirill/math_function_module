@@ -33,7 +33,7 @@ math_function_module.o:  math_function_module.cpp
 	@echo "-------------------------" 
 	mkdir -p ${OBJECTDIR}
 	rm -f "${OBJECTDIR}/$@.d"
-	$(COMPILE.cc) -c $(FLAGS) -o ${OBJECTDIR}/math_function_module.o math_function_module.cpp
+	$(COMPILE.cc) $(FLAGS) -o ${OBJECTDIR}/math_function_module.o math_function_module.cpp
 
 
 module: math_function_module.o
