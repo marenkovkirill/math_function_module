@@ -3,8 +3,13 @@
 #include <time.h>
 #include <math.h>
 
-#include "../module_headers/module.h"
-#include "../module_headers/function_module.h"
+#ifdef _WIN32
+#else
+	#include <cstdarg> //va_list
+#endif	
+
+#include "module.h"
+#include "function_module.h"
 #include "math_function_module.h"
 
 const unsigned int COUNT_MATH_FUNCTIONS = 13;
@@ -173,6 +178,6 @@ void MathFunctionModule::destroy() {
     delete this;
 };
 
-__declspec(dllexport) FunctionModule* getFunctionModuleObject() {
+PREFIX_FUNC_DLL FunctionModule* getFunctionModuleObject() {
     return new MathFunctionModule();
 };
