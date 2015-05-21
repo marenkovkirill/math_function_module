@@ -164,6 +164,9 @@ int MathFunctionModule::endProgram(int uniq_index) {
 
 void MathFunctionModule::destroy() {
 	for (unsigned int j = 0; j < COUNT_MATH_FUNCTIONS; ++j) {
+		if (math_functions[j]->count_params) {
+			delete[] math_functions[j]->params;
+		}
         delete math_functions[j];
     }
     delete[] math_functions;
