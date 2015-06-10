@@ -159,8 +159,11 @@ FunctionResult* MathFunctionModule::executeFunction(system_value function_index,
 	}
 };
 
-int MathFunctionModule::startProgram(int uniq_index, void *buffer, unsigned int buffer_length) {
+int MathFunctionModule::startProgram(int uniq_index) {
 	return 0;
+}
+
+void MathFunctionModule::readPC(void *buffer, unsigned int buffer_length) {
 }
 
 int MathFunctionModule::endProgram(int uniq_index) {
