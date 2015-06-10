@@ -4,6 +4,7 @@
 #include <math.h>
 
 #ifdef _WIN32
+	#include <windows.h>
 #else
 	#include <cstdarg> //va_list
 #endif	
