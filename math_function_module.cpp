@@ -68,7 +68,7 @@ void *MathFunctionModule::writePC(unsigned int *buffer_length) {
 }
 
 FunctionResult* MathFunctionModule::executeFunction(system_value function_index, void **args) {
-	if ((function_index < 1) || (function_index > COUNT_MATH_FUNCTIONS)) {
+	if ((function_index < 1) || (function_index > ((int) COUNT_MATH_FUNCTIONS))) {
 		return NULL;
 	}
 
