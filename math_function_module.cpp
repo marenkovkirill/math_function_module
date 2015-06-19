@@ -113,14 +113,14 @@ FunctionResult* MathFunctionModule::executeFunction(system_value function_index,
 					break;
 		}
 		case 8: {
-					if (((*input) < -1) && ((*input) > 1)) {
+					if (((*input) < -1) || ((*input) > 1)) {
 						throw std::exception();
 					}
 					rez = asin(*input);
 					break;
 		}
 		case 9: {
-					if (((*input) < -1) && ((*input) > 1)) {
+					if (((*input) < -1) || ((*input) > 1)) {
 						throw std::exception();
 					}
 					rez = acos(*input);
@@ -142,7 +142,7 @@ FunctionResult* MathFunctionModule::executeFunction(system_value function_index,
 					 break;
 		}
 		case 13: {
-					 if (input <= 0) {
+					 if (*input <= 0) {
 						 throw std::exception();
 					 }
 					 rez = log10(*input);
