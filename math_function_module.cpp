@@ -3,11 +3,7 @@
 #include <time.h>
 #include <math.h>
 
-#ifdef _WIN32
-	#include <windows.h>
-#else
-	#include <cstdarg> //va_list
-#endif	
+#include <stdarg.h>
 
 #include "module.h"
 #include "function_module.h"
