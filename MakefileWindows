@@ -27,19 +27,19 @@ release: clean module
 
 clean:
 	@echo "-------------------------" 
-	rm -rf ${OBJECTDIR}
+	${RM} -rf ${OBJECTDIR}
 
 
 math_function_module.o:  math_function_module.cpp
 	@echo "-------------------------" 
-	mkdir -p ${OBJECTDIR}
-	rm -f "${OBJECTDIR}/$@.d"
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} -f "${OBJECTDIR}/$@.d"
 	$(COMPILE.cc) $(FLAGS) -o ${OBJECTDIR}/math_function_module.o math_function_module.cpp
 
 
 module: math_function_module.o
 	@echo "-------------------------" 
-	mkdir -p ${OBJECTDIR}
+	${MKDIR} -p ${OBJECTDIR}
 	${LINK.cc} -shared -o ${OBJECTDIR}/math_module_$(FILENAME_FIX).dll ${OBJECTDIR}/math_function_module.o
 
 
