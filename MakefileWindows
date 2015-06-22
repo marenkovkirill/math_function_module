@@ -2,14 +2,15 @@
 CC=g++
 CCC=g++
 CXX=g++
+RM = "C:\msys\1.0\bin\rm.exe"
+MKDIR = "C:\msys\1.0\bin\mkdir.exe"
 
 # Constants
-MODULE_HEADERS_DIR = "G:\TempRepo\module_headers"
+MODULE_HEADERS_DIR = "C:\Program Files (x86)\Jenkins\workspace\module_headers"
 
 INCLUDE_DIR_FLAGS = -I${MODULE_HEADERS_DIR}
 
 FLAGS_MUTUAL = -Wall -m32 -std=c++11 ${INCLUDE_DIR_FLAGS} -MMD -MP -MF "${OBJECTDIR}/$@.d"
-
 
 .PHONY: debug
 
@@ -19,7 +20,7 @@ debug: FILENAME_FIX = debug
 debug: clean module
 
 release: OBJECTDIR = build/Release
-release: FLAGS = -O3 ${FLAGS_MUTUAL}
+release: FLAGS = -O3 ${FLAGS_MUTUAL} -DIS_RELEASE
 release: FILENAME_FIX = release
 release: clean module
 
