@@ -3,8 +3,10 @@
 #include <time.h>
 #include <math.h>
 
-#include "../module_headers/module.h"
-#include "../module_headers/function_module.h"
+#include <stdarg.h>
+
+#include "module.h"
+#include "function_module.h"
 #include "math_function_module.h"
 
 const unsigned int COUNT_MATH_FUNCTIONS = 13;
@@ -66,7 +68,7 @@ void *MathFunctionModule::writePC(unsigned int *buffer_length) {
 }
 
 FunctionResult* MathFunctionModule::executeFunction(system_value function_index, void **args) {
-	if ((function_index < 1) || (function_index > COUNT_MATH_FUNCTIONS)) {
+	if ((function_index < 1) || (function_index > ((int) COUNT_MATH_FUNCTIONS))) {
 		return NULL;
 	}
 
@@ -111,14 +113,14 @@ FunctionResult* MathFunctionModule::executeFunction(system_value function_index,
 					break;
 		}
 		case 8: {
-					if (((*input) < -1) && ((*input) > 1)) {
+					if (((*input) < -1) || ((*input) > 1)) {
 						throw std::exception();
 					}
 					rez = asin(*input);
 					break;
 		}
 		case 9: {
-					if (((*input) < -1) && ((*input) > 1)) {
+					if (((*input) < -1) || ((*input) > 1)) {
 						throw std::exception();
 					}
 					rez = acos(*input);
@@ -140,7 +142,7 @@ FunctionResult* MathFunctionModule::executeFunction(system_value function_index,
 					 break;
 		}
 		case 13: {
-					 if (input <= 0) {
+					 if (*input <= 0) {
 						 throw std::exception();
 					 }
 					 rez = log10(*input);
@@ -154,8 +156,11 @@ FunctionResult* MathFunctionModule::executeFunction(system_value function_index,
 	}
 };
 
-int MathFunctionModule::startProgram(int uniq_index, void *buffer, unsigned int buffer_length) {
+int MathFunctionModule::startProgram(int uniq_index) {
 	return 0;
+}
+
+void MathFunctionModule::readPC(void *buffer, unsigned int buffer_length) {
 }
 
 int MathFunctionModule::endProgram(int uniq_index) {
@@ -164,12 +169,15 @@ int MathFunctionModule::endProgram(int uniq_index) {
 
 void MathFunctionModule::destroy() {
 	for (unsigned int j = 0; j < COUNT_MATH_FUNCTIONS; ++j) {
+		if (math_functions[j]->count_params) {
+			delete[] math_functions[j]->params;
+		}
         delete math_functions[j];
     }
     delete[] math_functions;
     delete this;
 };
 
-__declspec(dllexport) FunctionModule* getFunctionModuleObject() {
+PREFIX_FUNC_DLL FunctionModule* getFunctionModuleObject() {
     return new MathFunctionModule();
 };
