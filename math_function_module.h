@@ -15,7 +15,7 @@ class MathFunctionModule : public FunctionModule {
 		MathFunctionModule();
 		
 		const char *getUID();
-		void prepare(colorPrintf_t *colorPrintf_p, colorPrintfVA_t *colorPrintfVA_p) {};
+		void prepare(colorPrintfModule_t *colorPrintf_p, colorPrintfModuleVA_t *colorPrintfVA_p) {};
 		
 		FunctionData **getFunctions(unsigned int *count_functions);
 		void *writePC(unsigned int *buffer_length);
