@@ -1,3 +1,2 @@
-/Debug/
-/Release/
-math_function_module.vcxproj.*
+build/
+nbproject/
