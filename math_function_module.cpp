@@ -10,7 +10,7 @@
 
 #include "math_function_module.h"
 
-#define UID "RCT_math_functions_module_V100"
+#define IID "RCT.Math_functions_module_v107"
 const unsigned int COUNT_MATH_FUNCTIONS = 13;
 
 #define ADD_MATH_FUNCTION1(FUNCTION_NAME)                                \
@@ -47,9 +47,9 @@ const unsigned int COUNT_MATH_FUNCTIONS = 13;
   ADD_MATH_FUNCTION1("log10")
 
 MathFunctionModule::MathFunctionModule() {
-#ifndef FUNCTION_MODULE_H_000
+#if MODULE_API_VERSION > 000
   mi = new ModuleInfo;
-  mi->uid = UID;
+  mi->uid = IID;
   mi->mode = ModuleInfo::Modes::PROD;
   mi->version = BUILD_NUMBER;
   mi->digest = NULL;
@@ -61,10 +61,10 @@ MathFunctionModule::MathFunctionModule() {
   DEFINE_ALL_FUNCTIONS
 };
 
-#ifdef FUNCTION_MODULE_H_000
-const char *MathFunctionModule::getUID() { return UID; }
-#else
+#if MODULE_API_VERSION > 000
 const struct ModuleInfo &MathFunctionModule::getModuleInfo() { return *mi; }
+#else
+const char *MathFunctionModule::getUID() { return IID; }
 #endif
 
 FunctionData **MathFunctionModule::getFunctions(unsigned int *count_functions) {
@@ -76,6 +76,10 @@ void *MathFunctionModule::writePC(unsigned int *buffer_length) {
   *buffer_length = 0;
   return NULL;
 }
+
+#if MODULE_API_VERSION > 100
+int MathFunctionModule::init() { return 0; };
+#endif
 
 FunctionResult *MathFunctionModule::executeFunction(system_value function_index,
                                                     void **args) {
@@ -160,16 +164,16 @@ FunctionResult *MathFunctionModule::executeFunction(system_value function_index,
         break;
       }
     }
-#ifdef FUNCTION_MODULE_H_000
-    return new FunctionResult(1, rez);
-#else
+#if MODULE_API_VERSION > 000
     return new FunctionResult(FunctionResult::Types::VALUE, rez);
+#else
+    return new FunctionResult(1, rez);
 #endif
   } catch (...) {
-#ifdef FUNCTION_MODULE_H_000
-    return new FunctionResult(0);
-#else
+#if MODULE_API_VERSION > 000
     return new FunctionResult(FunctionResult::Types::EXCEPTION);
+#else
+    return new FunctionResult(0);
 #endif
   }
 };
@@ -181,7 +185,7 @@ void MathFunctionModule::readPC(void *buffer, unsigned int buffer_length) {}
 int MathFunctionModule::endProgram(int uniq_index) { return 0; }
 
 void MathFunctionModule::destroy() {
-#ifndef FUNCTION_MODULE_H_000
+#if MODULE_API_VERSION > 000
   delete mi;
 #endif
   for (unsigned int j = 0; j < COUNT_MATH_FUNCTIONS; ++j) {
@@ -194,9 +198,9 @@ void MathFunctionModule::destroy() {
   delete this;
 };
 
-#ifndef FUNCTION_MODULE_H_000
+#if MODULE_API_VERSION > 000
 PREFIX_FUNC_DLL unsigned short getFunctionModuleApiVersion() {
-  return FUNCTION_MODULE_API_VERSION;
+  return MODULE_API_VERSION;
 };
 #endif
 
