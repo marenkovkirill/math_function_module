@@ -35,15 +35,20 @@ class MathFunctionModule : public FunctionModule {
 #if MODULE_API_VERSION > 100
   int init();
   void final() {};
+  
+  // intepreter - program & lib
+  int readPC(int pc_index, void *buffer, unsigned int buffer_length);
+  // intepreter - program
+  int startProgram(int run_index, int pc_index);
+#else
+  // intepreter - program & lib
+  void readPC(void *buffer, unsigned int buffer_length) {};
+  // intepreter - program
+  int startProgram(int run_index);
 #endif
 
-  // intepreter - program & lib
-  void readPC(void *buffer, unsigned int buffer_length);
-
-  // intepreter - program
-  int startProgram(int uniq_index);
   FunctionResult *executeFunction(system_value function_index, void **args);
-  int endProgram(int uniq_index);
+  int endProgram(int run_index);
 
   // destructor
   void destroy();
