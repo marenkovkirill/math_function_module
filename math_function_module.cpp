@@ -85,8 +85,13 @@ int MathFunctionModule::startProgram(int run_index, int pc_index) { return 0; }
 int MathFunctionModule::startProgram(int run_index) { return 0; }
 #endif
 
+#if MODULE_API_VERSION > 100
+FunctionResult *MathFunctionModule::executeFunction(int run_index, system_value function_index,
+                                                    void **args) {
+#else
 FunctionResult *MathFunctionModule::executeFunction(system_value function_index,
                                                     void **args) {
+#endif  
   if ((function_index < 1) || (function_index > ((int)COUNT_MATH_FUNCTIONS))) {
     return NULL;
   }

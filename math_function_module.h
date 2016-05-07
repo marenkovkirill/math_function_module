@@ -40,14 +40,16 @@ class MathFunctionModule : public FunctionModule {
   int readPC(int pc_index, void *buffer, unsigned int buffer_length);
   // intepreter - program
   int startProgram(int run_index, int pc_index);
+  FunctionResult *executeFunction(int run_index, system_value function_index, void **args);
 #else
   // intepreter - program & lib
   void readPC(void *buffer, unsigned int buffer_length) {};
   // intepreter - program
   int startProgram(int run_index);
+  FunctionResult *executeFunction(system_value function_index, void **args);
 #endif
 
-  FunctionResult *executeFunction(system_value function_index, void **args);
+  
   int endProgram(int run_index);
 
   // destructor
