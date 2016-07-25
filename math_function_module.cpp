@@ -1,9 +1,9 @@
-#include <stdlib.h>
+#include <cstdlib>
 #include <exception>
-#include <time.h>
-#include <math.h>
+#include <ctime>
+#include <cmath>
 
-#include <stdarg.h>
+#include <cstdarg>
 
 #include "module.h"
 #include "function_module.h"
@@ -102,18 +102,18 @@ FunctionResult *MathFunctionModule::executeFunction(system_value function_index,
     switch (function_index) {
       case 1: {
         variable_value *input2 = (variable_value *)(*(args + 1));
-        rez = pow(*input, *input2);
+        rez = std::pow(*input, *input2);
         break;
       }
       case 2: {
-        rez = abs(*input);
+        rez = std::abs(*input);
         break;
       }
       case 3: {
         if ((*input) < 0) {
           throw std::exception();
         }
-        rez = sqrt(*input);
+        rez = std::sqrt(*input);
         break;
       }
       case 4: {
@@ -125,51 +125,51 @@ FunctionResult *MathFunctionModule::executeFunction(system_value function_index,
         break;
       }
       case 5: {
-        rez = sin(*input);
+        rez = std::sin(*input);
         break;
       }
       case 6: {
-        rez = cos(*input);
+        rez = std::cos(*input);
         break;
       }
       case 7: {
-        rez = tan(*input);
+        rez = std::tan(*input);
         break;
       }
       case 8: {
         if (((*input) < -1) || ((*input) > 1)) {
           throw std::exception();
         }
-        rez = asin(*input);
+        rez = std::asin(*input);
         break;
       }
       case 9: {
         if (((*input) < -1) || ((*input) > 1)) {
           throw std::exception();
         }
-        rez = acos(*input);
+        rez = std::acos(*input);
         break;
       }
       case 10: {
-        rez = atan(*input);
+        rez = std::atan(*input);
         break;
       }
       case 11: {
-        rez = exp(*input);
+        rez = std::exp(*input);
         break;
       }
       case 12: {
         if (*input <= 0) {
           throw std::exception();
         }
-        rez = log(*input);
+        rez = std::log(*input);
         break;
       }
       case 13: {
         if (*input <= 0) {
           throw std::exception();
         }
-        rez = log10(*input);
+        rez = std::log10(*input);
         break;
       }
     }
