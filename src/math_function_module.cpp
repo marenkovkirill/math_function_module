@@ -59,7 +59,7 @@ MathFunctionModule::MathFunctionModule() {
   math_functions = new FunctionData *[COUNT_MATH_FUNCTIONS];
   system_value function_id = 0;
   DEFINE_ALL_FUNCTIONS
-};
+}
 
 #if MODULE_API_VERSION > 000
 const struct ModuleInfo &MathFunctionModule::getModuleInfo() { return *mi; }
@@ -70,7 +70,7 @@ const char *MathFunctionModule::getUID() { return IID; }
 FunctionData **MathFunctionModule::getFunctions(unsigned int *count_functions) {
   *count_functions = COUNT_MATH_FUNCTIONS;
   return math_functions;
-};
+}
 
 void *MathFunctionModule::writePC(unsigned int *buffer_length) {
   *buffer_length = 0;
@@ -185,7 +185,7 @@ FunctionResult *MathFunctionModule::executeFunction(system_value function_index,
     return new FunctionResult(0);
 #endif
   }
-};
+}
 
 int MathFunctionModule::endProgram(int run_index) { return 0; }
 
@@ -201,14 +201,14 @@ void MathFunctionModule::destroy() {
   }
   delete[] math_functions;
   delete this;
-};
+}
 
 #if MODULE_API_VERSION > 000
 PREFIX_FUNC_DLL unsigned short getFunctionModuleApiVersion() {
   return MODULE_API_VERSION;
-};
+}
 #endif
 
 PREFIX_FUNC_DLL FunctionModule *getFunctionModuleObject() {
   return new MathFunctionModule();
-};
+}
